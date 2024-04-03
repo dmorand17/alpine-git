@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eou pipefail
+set -e
 
 # Run git inside container
 docker run --rm -it \
