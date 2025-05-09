@@ -1,14 +1,10 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-# Check if alpine-git image exists
+# Check if image is already pulled, if not pull it from docker hub
 if ! docker images alpine-git | grep -q alpine-git; then
-    echo "alpine-git image does not exist, building it..."
-    # Change to script directory relative to this file even if its a symlink
-    pushd "$(dirname "$(readlink -f "$0")")" &> /dev/null
-    docker build -t alpine-git .
-    popd &> /dev/null
+    docker pull ${GIT_CONTAINER_IMAGE:-docker.io/dmorand17/alpine-git:latest}
 fi
 
 # Run git inside container
